@@ -1,14 +1,17 @@
 CC=gcc
-TARGET=main.c
-OUTPUT=main
-FLAGS=-Wall -Wextra
-LIBS=
+TARGET_DIR=src/
+TARGET=$(TARGET_DIR)main.c
+OUTPUT_DIR=build/
+OUTPUT=$(OUTPUT_DIR)dirvis
+FLAGS=-Wall -Wextra -ggdb
+MODULES=$(TARGET_DIR)dir_print.c $(TARGET_DIR)flags.c
 
 $(OUTPUT):
-	$(CC) $(TARGET) -o $(OUTPUT)
+	mkdir -p $(OUTPUT_DIR)
+	$(CC) $(TARGET) $(MODULES) $(FLAGS) -o $(OUTPUT)
 
 clean:
-	rm $(OUTPUT)
+	rm -rf $(OUTPUT_DIR)
 
 run:
 	./$(OUTPUT)
