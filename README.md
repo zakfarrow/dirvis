@@ -1,6 +1,6 @@
 # DirVis 🌳
 
-**Directory Visualiser** - A fast, lightweight command-line tool for visualizing directory structures with tree output.
+**Directory Visualiser** - A fast, simple command-line tool for visualising directory structures with tree output.
 
 ## Usage
 
