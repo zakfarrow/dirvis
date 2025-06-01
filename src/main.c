@@ -87,6 +87,12 @@ int main(int argc, char **argv) {
 
   const char *path = argv[1];
 
+  if (argv[1][(strlen(argv[1]) - 1)] == '/') {
+    printf("%s\n", argv[1]);
+  } else {
+    printf("%s/\n", argv[1]);
+  }
+
   print_directory_recursive(path, 1, &flags);
 
   return 0;
