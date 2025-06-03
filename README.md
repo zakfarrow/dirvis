@@ -74,6 +74,10 @@ foo/
 - [ ] Specify directories to exclude from recursion
 - [x] Config file to change primary/accent colours
 - [ ] Add some information like file size and date created to output
+- [ ] Exclude printing things like 'node_modules' folders
+- [ ] Add a default depth or other output control to prevent huge prints when used without depth flag
+- [ ] Change spelling of 'colour' to 'color' (damn Americans...)
+- [ ] Clean up codebase because it's disgusting
 
 
 
