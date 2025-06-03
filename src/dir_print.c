@@ -6,6 +6,10 @@
 #include <string.h>
 #include <sys/stat.h>
 
+void print_colour(RGB *rgb, char *name) {
+  printf("\033[38;2;%d;%d;%dm%s\033[0m", rgb->r, rgb->g, rgb->b, name);
+}
+
 char *build_path(const char *dir, const char *name) {
   size_t dir_len = strlen(dir);
   size_t name_len = strlen(name);
@@ -66,7 +70,8 @@ int is_hidden_folder(const char *name) {
   return (name[0] == '.' && strcmp(name, ".") != 0 && strcmp(name, "..") != 0);
 }
 
-void print_directory_recursive(const char *path, int depth, Flags *flags) {
+void print_directory_recursive(const char *path, int depth, Flags *flags,
+                               Config *conf) {
   DIR *dir;
   struct dirent *dp;
   struct stat file_stat;
@@ -104,15 +109,23 @@ void print_directory_recursive(const char *path, int depth, Flags *flags) {
 
     if (stat(full_path, &file_stat) == 0) {
       if (S_ISDIR(file_stat.st_mode)) {
-        printf("%s/\n", dp->d_name);
-        print_directory_recursive(full_path, depth + 1, flags);
+        print_colour(&conf->colour_theme->directory, dp->d_name);
+        printf("/\n");
+        print_directory_recursive(full_path, depth + 1, flags, conf);
+
       } else {
-        printf("%s\n", dp->d_name);
+        if (file_stat.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)) {
+          print_colour(&conf->colour_theme->executable, dp->d_name);
+        } else if (dp->d_name[0] == '.') {
+          print_colour(&conf->colour_theme->hidden, dp->d_name);
+        } else {
+          print_colour(&conf->colour_theme->file, dp->d_name);
+        }
+        printf("\n");
       }
     } else {
       printf("%s [ERROR: cannot stat]\n", dp->d_name);
     }
-
     free(full_path);
   }
 

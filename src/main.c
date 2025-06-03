@@ -1,3 +1,4 @@
+#include "config.h"
 #include "dir_print.h"
 #include "flags.h"
 #include <stdbool.h>
@@ -78,6 +79,10 @@ int main(int argc, char **argv) {
   Flags flags = {0};
   init_flags(&flags);
 
+  ColourTheme colour_theme = {0};
+  Config conf = {&colour_theme};
+  init_config(&conf);
+
   if (!set_optional_flags(argc, argv, &flags)) {
     if (flags.help) {
       show_help();
@@ -87,13 +92,15 @@ int main(int argc, char **argv) {
 
   const char *path = argv[1];
 
-  if (argv[1][(strlen(argv[1]) - 1)] == '/') {
-    printf("%s\n", argv[1]);
-  } else {
-    printf("%s/\n", argv[1]);
-  }
+  int len = strlen(argv[1]);
+  int print_len = (len > 0 && argv[1][len - 1] == '/') ? len - 1 : len;
 
-  print_directory_recursive(path, 1, &flags);
+  printf("\033[38;2;%d;%d;%dm%.*s\033[0m", colour_theme.directory.r,
+         colour_theme.directory.g, colour_theme.directory.b, print_len,
+         argv[1]);
+  printf("/\n");
+
+  print_directory_recursive(path, 1, &flags, &conf);
 
   return 0;
 }
