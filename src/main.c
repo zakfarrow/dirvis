@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
 
   ColourTheme colour_theme = {0};
   Config conf = {&colour_theme};
-  init_config(&conf);
+  init_config(&conf, &flags);
 
   if (!set_optional_flags(argc, argv, &flags)) {
     if (flags.help) {
@@ -95,10 +95,18 @@ int main(int argc, char **argv) {
   int len = strlen(argv[1]);
   int print_len = (len > 0 && argv[1][len - 1] == '/') ? len - 1 : len;
 
-  printf("\033[38;2;%d;%d;%dm%.*s\033[0m", colour_theme.directory.r,
-         colour_theme.directory.g, colour_theme.directory.b, print_len,
-         argv[1]);
-  printf("/\n");
+  if (flags.no_colour) {
+    if (argv[1][(strlen(argv[1]) - 1)] == '/') {
+      printf("%s\n", argv[1]);
+    } else {
+      printf("%s/\n", argv[1]);
+    }
+  } else {
+    printf("\033[38;2;%d;%d;%dm%.*s\033[0m", colour_theme.directory.r,
+           colour_theme.directory.g, colour_theme.directory.b, print_len,
+           argv[1]);
+    printf("/\n");
+  }
 
   print_directory_recursive(path, 1, &flags, &conf);
 

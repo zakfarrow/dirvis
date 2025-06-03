@@ -109,19 +109,27 @@ void print_directory_recursive(const char *path, int depth, Flags *flags,
 
     if (stat(full_path, &file_stat) == 0) {
       if (S_ISDIR(file_stat.st_mode)) {
-        print_colour(&conf->colour_theme->directory, dp->d_name);
-        printf("/\n");
+        if (flags->no_colour) {
+          printf("%s/\n", dp->d_name);
+        } else {
+          print_colour(&conf->colour_theme->directory, dp->d_name);
+          printf("/\n");
+        }
         print_directory_recursive(full_path, depth + 1, flags, conf);
 
       } else {
-        if (file_stat.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)) {
-          print_colour(&conf->colour_theme->executable, dp->d_name);
-        } else if (dp->d_name[0] == '.') {
-          print_colour(&conf->colour_theme->hidden, dp->d_name);
+        if (flags->no_colour) {
+          printf("%s\n", dp->d_name);
         } else {
-          print_colour(&conf->colour_theme->file, dp->d_name);
+          if (file_stat.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)) {
+            print_colour(&conf->colour_theme->executable, dp->d_name);
+          } else if (dp->d_name[0] == '.') {
+            print_colour(&conf->colour_theme->hidden, dp->d_name);
+          } else {
+            print_colour(&conf->colour_theme->file, dp->d_name);
+          }
+          printf("\n");
         }
-        printf("\n");
       }
     } else {
       printf("%s [ERROR: cannot stat]\n", dp->d_name);

@@ -21,14 +21,14 @@ void hex_to_rgb(char *hex, RGB *rgb) {
   }
 }
 
-void set_default_colours(ColourTheme *ct) {
-  ct->directory = (RGB){.r = 255, .g = 255, .b = 255};
-  ct->file = (RGB){.r = 255, .g = 255, .b = 255};
-  ct->hidden = (RGB){.r = 255, .g = 255, .b = 255};
-  ct->executable = (RGB){.r = 255, .g = 255, .b = 255};
-}
+/*void set_default_colours(ColourTheme *ct) {*/
+/*  ct->directory = (RGB){.r = 255, .g = 255, .b = 255};*/
+/*  ct->file = (RGB){.r = 255, .g = 255, .b = 255};*/
+/*  ct->hidden = (RGB){.r = 255, .g = 255, .b = 255};*/
+/*  ct->executable = (RGB){.r = 255, .g = 255, .b = 255};*/
+/*}*/
 
-void init_config(Config *conf) {
+void init_config(Config *conf, Flags *flags) {
 
   RGB directory_rgb;
   RGB file_rgb;
@@ -39,7 +39,7 @@ void init_config(Config *conf) {
   fp = fopen(CONFIG_LOCATION, "r");
 
   if (fp == NULL) {
-    set_default_colours(conf->colour_theme);
+    flags->no_colour = true;
   } else {
     char line[256];
 
