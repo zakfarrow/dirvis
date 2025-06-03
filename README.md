@@ -14,7 +14,7 @@ dirvis [DIRECTORY] [OPTIONS]
 #### Options
 - `--show-hidden` - Include hidden files and directories in output
 - `--max-depth <N>` - Limit directory traversal to N levels deep
-- `--no-colour` - Use default colours (white) when printing ***not implemented yet***
+- `--no-colour` - Use default colours (white) when printing
 - `--help` - Display help information
 
 ## Examples
@@ -71,8 +71,9 @@ foo/
     └── fizz/
 ```
 ## Roadmap
-- Specify directories to exclude from recursion
-- Config file to change primary/accent colours
+- [ ] Specify directories to exclude from recursion
+- [x] Config file to change primary/accent colours
+- [ ] Add some information like file size and date created to output
 
 
 
