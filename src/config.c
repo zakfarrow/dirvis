@@ -21,52 +21,58 @@ void hex_to_rgb(char *hex, RGB *rgb) {
   }
 }
 
-bool init_config(Config *conf) {
-  FILE *fp;
-  fp = fopen(CONFIG_LOCATION, "r");
+void set_default_colours(ColourTheme *ct) {
+  ct->directory = (RGB){.r = 255, .g = 255, .b = 255};
+  ct->file = (RGB){.r = 255, .g = 255, .b = 255};
+  ct->hidden = (RGB){.r = 255, .g = 255, .b = 255};
+  ct->executable = (RGB){.r = 255, .g = 255, .b = 255};
+}
 
-  if (fp == NULL) {
-    return false;
-  }
-
-  char line[256];
+void init_config(Config *conf) {
 
   RGB directory_rgb;
   RGB file_rgb;
   RGB hidden_rgb;
   RGB executable_rgb;
 
-  while (fgets(line, sizeof(line), fp)) {
-    line[strcspn(line, "\r\n")] = 0;
-    if (line[0] == '!') {
-      break;
-    }
+  FILE *fp;
+  fp = fopen(CONFIG_LOCATION, "r");
 
-    char *value;
+  if (fp == NULL) {
+    set_default_colours(conf->colour_theme);
+  } else {
+    char line[256];
 
-    if ((line[0] != '[')) {
-      char *key = strtok_r(line, "=", &value);
-      if (key == NULL || value == NULL)
-        continue;
-      if (strcmp("directory", key) == 0) {
-        hex_to_rgb(value, &directory_rgb);
-        conf->colour_theme->directory = directory_rgb;
+    while (fgets(line, sizeof(line), fp)) {
+      line[strcspn(line, "\r\n")] = 0;
+      if (line[0] == '!') {
+        break;
       }
-      if (strcmp("file", key) == 0) {
-        hex_to_rgb(value, &file_rgb);
-        conf->colour_theme->file = file_rgb;
-      }
-      if (strcmp("hidden", key) == 0) {
-        hex_to_rgb(value, &hidden_rgb);
-        conf->colour_theme->hidden = hidden_rgb;
-      }
-      if (strcmp("executable", key) == 0) {
-        hex_to_rgb(value, &executable_rgb);
-        conf->colour_theme->executable = executable_rgb;
+
+      char *value;
+
+      if ((line[0] != '[')) {
+        char *key = strtok_r(line, "=", &value);
+        if (key == NULL || value == NULL)
+          continue;
+        if (strcmp("directory", key) == 0) {
+          hex_to_rgb(value, &directory_rgb);
+          conf->colour_theme->directory = directory_rgb;
+        }
+        if (strcmp("file", key) == 0) {
+          hex_to_rgb(value, &file_rgb);
+          conf->colour_theme->file = file_rgb;
+        }
+        if (strcmp("hidden", key) == 0) {
+          hex_to_rgb(value, &hidden_rgb);
+          conf->colour_theme->hidden = hidden_rgb;
+        }
+        if (strcmp("executable", key) == 0) {
+          hex_to_rgb(value, &executable_rgb);
+          conf->colour_theme->executable = executable_rgb;
+        }
       }
     }
+    fclose(fp);
   }
-
-  fclose(fp);
-  return true;
 }

@@ -20,7 +20,8 @@ typedef struct {
   ColourTheme *colour_theme;
 } Config;
 
-bool init_config(Config *conf);
+void init_config(Config *conf);
 void hex_to_rgb(char *hex, RGB *rgb);
+void set_default_colours(ColourTheme *ct);
 
 #endif /* CONFIG_H */
