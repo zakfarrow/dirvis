@@ -70,6 +70,13 @@ foo/
     ├── buzz/
     └── fizz/
 ```
+
+### Color Output 
+If a dirvis.ini file can be opened, output will be colorised:
+```bash
+dirvis foo --show-hidden
+```
+![DirVis colored output](examples/color_output_example.png)
 ## Roadmap
 - [ ] Specify directories to exclude from recursion
 - [x] Config file to change primary/accent colours
