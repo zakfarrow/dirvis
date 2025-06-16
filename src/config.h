@@ -15,14 +15,14 @@ typedef struct {
   RGB file;
   RGB hidden;
   RGB executable;
-} ColourTheme;
+} ColorTheme;
 
 typedef struct {
-  ColourTheme *colour_theme;
+  ColorTheme *color_theme;
 } Config;
 
 void init_config(Config *conf, Flags *flags);
 void hex_to_rgb(char *hex, RGB *rgb);
-/*void set_default_colours(ColourTheme *ct);*/
+/*void set_default_colors(ColorTheme *ct);*/
 
 #endif /* CONFIG_H */

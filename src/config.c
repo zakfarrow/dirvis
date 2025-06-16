@@ -22,7 +22,7 @@ void hex_to_rgb(char *hex, RGB *rgb) {
   }
 }
 
-/*void set_default_colours(ColourTheme *ct) {*/
+/*void set_default_colors(ColorTheme *ct) {*/
 /*  ct->directory = (RGB){.r = 255, .g = 255, .b = 255};*/
 /*  ct->file = (RGB){.r = 255, .g = 255, .b = 255};*/
 /*  ct->hidden = (RGB){.r = 255, .g = 255, .b = 255};*/
@@ -40,7 +40,7 @@ void init_config(Config *conf, Flags *flags) {
   fp = fopen(CONFIG_LOCATION, "r");
 
   if (fp == NULL) {
-    flags->no_colour = true;
+    flags->no_color = true;
   } else {
     char line[256];
 
@@ -58,19 +58,19 @@ void init_config(Config *conf, Flags *flags) {
           continue;
         if (strcmp("directory", key) == 0) {
           hex_to_rgb(value, &directory_rgb);
-          conf->colour_theme->directory = directory_rgb;
+          conf->color_theme->directory = directory_rgb;
         }
         if (strcmp("file", key) == 0) {
           hex_to_rgb(value, &file_rgb);
-          conf->colour_theme->file = file_rgb;
+          conf->color_theme->file = file_rgb;
         }
         if (strcmp("hidden", key) == 0) {
           hex_to_rgb(value, &hidden_rgb);
-          conf->colour_theme->hidden = hidden_rgb;
+          conf->color_theme->hidden = hidden_rgb;
         }
         if (strcmp("executable", key) == 0) {
           hex_to_rgb(value, &executable_rgb);
-          conf->colour_theme->executable = executable_rgb;
+          conf->color_theme->executable = executable_rgb;
         }
       }
     }

@@ -7,7 +7,7 @@ typedef struct {
   bool help;
   bool show_hidden;
   int max_depth;
-  bool no_colour;
+  bool no_color;
 } Flags;
 
 void init_flags(Flags *flags);

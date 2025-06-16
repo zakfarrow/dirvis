@@ -11,6 +11,6 @@ int count_visible_entries(const char *path, Flags *flags);
 int is_hidden_folder(const char *name);
 void print_directory_recursive(const char *path, int depth, Flags *flags,
                                Config *config);
-void print_colour(RGB *rgb, char *name);
+void print_color(RGB *rgb, char *name);
 
 #endif /* DIR_PRINT_H */

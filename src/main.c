@@ -7,7 +7,7 @@
 #include <string.h>
 
 const char *option_flags[] = {"--help",      "-h", "--show-hidden", "-a",
-                              "--max-depth", "-d", "--no-colour",   "-c"};
+                              "--max-depth", "-d", "--no-color",    "-c"};
 
 #define OPTIONS_LEN (sizeof(option_flags) / sizeof(option_flags[0]))
 
@@ -61,9 +61,9 @@ bool set_optional_flags(int argc, char **argv, Flags *flags) {
         printf("Depth must be a positive integer (1, 2, 3, ...)\n");
         return false;
       }
-    } else if ((strcmp(argv[i], "--no-colour") == 0) |
+    } else if ((strcmp(argv[i], "--no-color") == 0) |
                (strcmp(argv[i], "-c") == 0)) {
-      flags->no_colour = true;
+      flags->no_color = true;
     } else {
       printf("Error: Unknown flag '%s'\n", argv[i]);
       printf("Try '%s --help' for a list of available options.\n", argv[0]);
@@ -79,8 +79,8 @@ int main(int argc, char **argv) {
   Flags flags = {0};
   init_flags(&flags);
 
-  ColourTheme colour_theme = {0};
-  Config conf = {&colour_theme};
+  ColorTheme color_theme = {0};
+  Config conf = {&color_theme};
   init_config(&conf, &flags);
 
   if (!set_optional_flags(argc, argv, &flags)) {
@@ -95,15 +95,15 @@ int main(int argc, char **argv) {
   int len = strlen(argv[1]);
   int print_len = (len > 0 && argv[1][len - 1] == '/') ? len - 1 : len;
 
-  if (flags.no_colour) {
+  if (flags.no_color) {
     if (argv[1][(strlen(argv[1]) - 1)] == '/') {
       printf("%s\n", argv[1]);
     } else {
       printf("%s/\n", argv[1]);
     }
   } else {
-    printf("\033[38;2;%d;%d;%dm%.*s\033[0m", colour_theme.directory.r,
-           colour_theme.directory.g, colour_theme.directory.b, print_len,
+    printf("\033[38;2;%d;%d;%dm%.*s\033[0m", color_theme.directory.r,
+           color_theme.directory.g, color_theme.directory.b, print_len,
            argv[1]);
     printf("/\n");
   }

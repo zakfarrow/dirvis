@@ -14,7 +14,7 @@ dirvis [DIRECTORY] [OPTIONS]
 #### Options
 - `--show-hidden` - Include hidden files and directories in output
 - `--max-depth <N>` - Limit directory traversal to N levels deep
-- `--no-colour` - Use default colours (white) when printing
+- `--no-color` - Use default colors (white) when printing
 - `--help` - Display help information
 
 ## Examples
@@ -79,11 +79,11 @@ dirvis foo --show-hidden
 ![DirVis colored output](examples/color_output_example.png)
 ## Roadmap
 - [ ] Specify directories to exclude from recursion
-- [x] Config file to change primary/accent colours
+- [x] Config file to change primary/accent colors
 - [ ] Add some information like file size and date created to output
 - [ ] Exclude printing things like 'node_modules' folders
 - [ ] Add a default depth or other output control to prevent huge prints when used without depth flag
-- [ ] Change spelling of 'colour' to 'color' (damn Americans...)
+- [ ] Change spelling of 'color' to 'color' 
 - [ ] Clean up codebase because it's disgusting
 - [ ] Write some completion scripts for autocomplete functionality
 
