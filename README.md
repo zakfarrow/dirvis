@@ -86,6 +86,7 @@ dirvis foo --show-hidden
 - [x] Change spelling of 'color' to 'color' 
 - [ ] Clean up codebase because it's disgusting
 - [ ] Write some completion scripts for autocomplete functionality
+- [ ] Update help menu so it's actually useful
 
 
 
