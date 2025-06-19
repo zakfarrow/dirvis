@@ -3,6 +3,8 @@
 
 #include "flags.h"
 #include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
 typedef struct {
   int r;

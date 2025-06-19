@@ -1,21 +1,17 @@
 #include "config.h"
 #include "dir_print.h"
 #include "flags.h"
+#include "help_menu.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-const char *option_flags[] = {"--help",      "-h", "--show-hidden", "-a",
-                              "--max-depth", "-d", "--no-color",    "-c"};
+const char *option_flags[] = {"--help", "-h",          "--show-hidden",
+                              "-a",     "--max-depth", "-d",
+                              "-D",     "--no-color",  "-c"};
 
 #define OPTIONS_LEN (sizeof(option_flags) / sizeof(option_flags[0]))
-
-void show_help() {
-  printf("---- Help Menu ----\n");
-  printf("  --exclude (-e): exclude hidden files and directories\n");
-  printf("  --help(-h): open the help menu\n");
-}
 
 int depth_arg_to_int(char *val, long num) {
   num = strtol(val, &val, num);
@@ -58,13 +54,16 @@ bool set_optional_flags(int argc, char **argv, Flags *flags) {
       } else {
         printf("Error: Invalid depth value '%s' for flag '%s'\n", argv[i + 1],
                argv[i]);
-        printf("Depth must be a positive integer (1, 2, 3, ...)\n");
+        printf("Depth must be an integer greater than 0 (1, 2, 3, ...)\n");
         return false;
       }
+    } else if ((strcmp(argv[i], "-D") == 0)) {
+      flags->max_depth = 999;
     } else if ((strcmp(argv[i], "--no-color") == 0) |
                (strcmp(argv[i], "-c") == 0)) {
       flags->no_color = true;
     } else {
+
       printf("Error: Unknown flag '%s'\n", argv[i]);
       printf("Try '%s --help' for a list of available options.\n", argv[0]);
       return false;

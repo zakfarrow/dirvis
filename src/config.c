@@ -1,8 +1,5 @@
 #define _POSIX_C_SOURCE 200809L
 #include "config.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
 
 #define CONFIG_LOCATION "/home/dirvis.ini"
 
