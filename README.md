@@ -86,7 +86,7 @@ dirvis foo --show-hidden
 - [x] Change spelling of 'color' to 'color' 
 - [ ] Clean up codebase because it's disgusting
 - [ ] Write some completion scripts for autocomplete functionality
-- [ ] Update help menu so it's actually useful
+- [x] Update help menu so it's actually useful
 - [x] Add flag to set max depth to 999 (may revisit in future if there's a need to have an unlimited depth)
 
 
