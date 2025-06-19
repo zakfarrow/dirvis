@@ -2,6 +2,7 @@
 #include "dir_print.h"
 #include "flags.h"
 #include "help_menu.h"
+#include <dirent.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -81,6 +82,11 @@ int main(int argc, char **argv) {
   ColorTheme color_theme = {0};
   Config conf = {&color_theme};
   init_config(&conf, &flags);
+
+  if ((strcmp(argv[1], "--help") == 0) | (strcmp(argv[1], "-h") == 0)) {
+    show_help();
+    return 1;
+  }
 
   if (!set_optional_flags(argc, argv, &flags)) {
     if (flags.help) {
