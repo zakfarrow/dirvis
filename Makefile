@@ -5,7 +5,7 @@ OUTPUT_DIR=build/
 OUTPUT=$(OUTPUT_DIR)dirvis
 BINARY_NAME=dirvis
 FLAGS=-Wall -Wextra -ggdb -std=c99
-MODULES=$(TARGET_DIR)dir_print.c $(TARGET_DIR)flags.c $(TARGET_DIR)config.c
+MODULES=$(TARGET_DIR)dir_print.c $(TARGET_DIR)flags.c $(TARGET_DIR)config.c $(TARGET_DIR)help_menu.c
 
 # Installation directories
 INSTALL_DIR=/usr/local/bin
